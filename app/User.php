@@ -12,9 +12,9 @@ class User extends Authenticatable
 
     /**
      * The attributes that are mass assignable.
-     *
      * @var array
      */
+
     protected $fillable = [
         'name', 'email', 'password',
     ];
@@ -33,7 +33,13 @@ class User extends Authenticatable
      *
      * @var array
      */
+
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function news()
+    {
+        return $this->hasMany('App\News');
+    }
 }
