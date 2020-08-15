@@ -36,6 +36,7 @@
     </style>
 </head>
 <body style="background: #080808">
+
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
@@ -96,5 +97,9 @@
         @yield('content')
     </main>
 </div>
+
+
 </body>
+
+
 </html>

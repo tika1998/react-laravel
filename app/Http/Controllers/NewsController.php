@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Contract\NewsInterface;
 use App\Http\Requests\NewsRequest;
 use App\News;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 
 class NewsController extends Controller
 {
@@ -15,11 +17,20 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private $newsInterface;
+
+    public function __construct(NewsInterface $NewsInterface)
+    {
+        $this->newsInterface = $NewsInterface;
+    }
+
     public function index()
     {
-        $news = News::paginate(2);
-
-        return view('news.allNews', compact('news'));
+       // $news = News::paginate(2);
+        $news = News::all();
+        return $news;
+      //return view('news.allNews', compact('news'));
     }
 
     /**
@@ -27,6 +38,7 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function create()
     {
         return view('news.createNews');
@@ -56,11 +68,11 @@ class NewsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
         $news = News::findorfail($id);
         return view('news.show', compact('news'));
-
     }
 
     /**
@@ -92,10 +104,11 @@ class NewsController extends Controller
 
     public function hello()
     {
-        $a = News::with('user')->where('user_id', 1)->get();
-        // dd($a);
+        //$a = News::with('user')->where('user_id', 1)->get();
+        //dd($a);
+        $news = $this->newsInterface->getNews();
+        dd($news);
         return view('news.hello', compact('a'));
-
     }
 
     /**
